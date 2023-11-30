@@ -1,5 +1,6 @@
 package com.user.dto;
 
+import com.user.others.FriendRequest;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -27,4 +29,6 @@ public class UserDto {
     private String password;
     @NotBlank(message = "Please Write Something about Yourself")
     private String bio ;
+
+    private List<FriendRequest> friendRequest ;
 }

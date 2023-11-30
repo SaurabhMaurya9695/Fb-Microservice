@@ -4,6 +4,8 @@ import com.user.controller.Auth;
 import com.user.dto.UserDto;
 import com.user.entity.User;
 import com.user.exception.ResourceNotFoundException;
+import com.user.feignclient.FriendRequestService;
+import com.user.others.FriendRequest;
 import com.user.repo.UserRepository;
 import com.user.response.ApiResponse;
 import com.user.service.UserService;
@@ -11,7 +13,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,7 +27,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private FriendRequestService friendRequestService;
+
+    @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private RestTemplate restTemplate;
     @Override
     public UserDto createUser(UserDto userDto) {
         String userId = UUID.randomUUID().toString();
@@ -36,7 +46,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(String userId) {
         User user = this.userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User Not Foubd In Db"));
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Found In Db"));
+
+        // here we have to add user's friend request
+        List<FriendRequest> friendRequest = this.friendRequestService.getAllFRBySenderFromId(userId);
+        user.setFriendRequest(friendRequest);
         return modelMapper.map(user , UserDto.class);
     }
 
@@ -44,6 +58,8 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAllUser() {
         List<User> users = this.userRepository.findAll();
         List<UserDto> userDtos = users.stream().map(user -> {
+            List<FriendRequest> friendRequest = this.friendRequestService.getAllFRBySenderFromId(user.getUserId());
+            user.setFriendRequest(friendRequest);
             return modelMapper.map(user, UserDto.class);
         }).collect(Collectors.toList());
         return userDtos;

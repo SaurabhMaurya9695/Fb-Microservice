@@ -1,13 +1,12 @@
 package com.user.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.user.others.FriendRequest;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -27,5 +26,8 @@ public class User {
     private String gender ;
     private String password; //secure min length 8 and max length 16
     private String bio ;
+
+    @Transient
+    private List<FriendRequest> friendRequest ;
 
 }
