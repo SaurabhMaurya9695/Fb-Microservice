@@ -1,6 +1,6 @@
-package com.user.exception;
+package com.request.exception;
 
-import com.user.response.ApiResponse;
+import com.request.response.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
