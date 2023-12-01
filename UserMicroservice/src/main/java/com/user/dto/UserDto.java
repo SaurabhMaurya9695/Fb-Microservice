@@ -1,7 +1,7 @@
 package com.user.dto;
 
 import com.user.others.FriendRequest;
-import jakarta.persistence.Column;
+import com.user.others.Post;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -31,4 +31,5 @@ public class UserDto {
     private String bio ;
 
     private List<FriendRequest> friendRequest ;
+    private List<Post> post ;
 }

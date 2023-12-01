@@ -5,7 +5,9 @@ import com.user.dto.UserDto;
 import com.user.entity.User;
 import com.user.exception.ResourceNotFoundException;
 import com.user.feignclient.FriendRequestService;
+import com.user.feignclient.PostService;
 import com.user.others.FriendRequest;
+import com.user.others.Post;
 import com.user.repo.UserRepository;
 import com.user.response.ApiResponse;
 import com.user.service.UserService;
@@ -13,9 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,10 +30,11 @@ public class UserServiceImpl implements UserService {
     private FriendRequestService friendRequestService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private PostService postService;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private ModelMapper modelMapper;
+
     @Override
     public UserDto createUser(UserDto userDto) {
         String userId = UUID.randomUUID().toString();
@@ -51,6 +52,10 @@ public class UserServiceImpl implements UserService {
         // here we have to add user's friend request
         List<FriendRequest> friendRequest = this.friendRequestService.getAllFRBySenderFromId(userId);
         user.setFriendRequest(friendRequest);
+
+        //we have to send the post imformation also
+        List<Post> allPostByUser = this.postService.getAllPostByUser(userId);
+        user.setPost(allPostByUser);
         return modelMapper.map(user , UserDto.class);
     }
 

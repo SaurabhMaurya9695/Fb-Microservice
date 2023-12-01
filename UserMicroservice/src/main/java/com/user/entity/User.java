@@ -2,6 +2,7 @@ package com.user.entity;
 
 
 import com.user.others.FriendRequest;
+import com.user.others.Post;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,5 +30,9 @@ public class User {
 
     @Transient
     private List<FriendRequest> friendRequest ;
+
+    @Transient
+    private List<Post> post ;
+
 
 }
