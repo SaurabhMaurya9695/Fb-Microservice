@@ -11,6 +11,6 @@ import java.util.List;
 @FeignClient(name = "POST-SERVICE" )
 public interface PostService {
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/post/users/{userId}")
     List<Post> getAllPostByUser(@PathVariable("userId") String userId);
 }

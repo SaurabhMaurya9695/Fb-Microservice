@@ -65,6 +65,8 @@ public class UserServiceImpl implements UserService {
         List<UserDto> userDtos = users.stream().map(user -> {
             List<FriendRequest> friendRequest = this.friendRequestService.getAllFRBySenderFromId(user.getUserId());
             user.setFriendRequest(friendRequest);
+            List<Post> allPostByUser = this.postService.getAllPostByUser(user.getUserId());
+            user.setPost(allPostByUser);
             return modelMapper.map(user, UserDto.class);
         }).collect(Collectors.toList());
         return userDtos;
