@@ -10,14 +10,31 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/users/** , /auth/**
+# Before sending request to ms first execute this filters whose name is AuthenticationFilter
+          filters:
+            - name: AuthenticationFilter
+
+
         - id: POST-SERVICE
           uri: lb://POST-SERVICE
           predicates:
             - Path=/post/**
+          filters:
+            - name: AuthenticationFilter
+
+
         - id: REQUEST-SERVICE
           uri: lb://REQUEST-SERVICE
           predicates:
             - Path=/request/**
+          filters:
+            - name: AuthenticationFilter
+
+
+        - id: JWT-SERVICE
+          uri: lb://JWT-SERVICE
+          predicates:
+            - Path=/authenticate/**
   #Adding config-Server
   config:
     import: optional:configserver:http://localhost:8085/
