@@ -28,6 +28,8 @@ public class User {
     private String password; //secure min length 8 and max length 16
     private String bio ;
 
+    private String image ;
+
     @Transient
     private List<FriendRequest> friendRequest ;
 

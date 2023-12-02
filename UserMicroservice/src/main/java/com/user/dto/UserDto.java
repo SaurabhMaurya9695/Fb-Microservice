@@ -30,6 +30,8 @@ public class UserDto {
     @NotBlank(message = "Please Write Something about Yourself")
     private String bio ;
 
+    private String image ;
+
     private List<FriendRequest> friendRequest ;
     private List<Post> post ;
 }

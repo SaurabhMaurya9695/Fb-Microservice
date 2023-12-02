@@ -50,4 +50,13 @@ public class GlobalExceptionHandler {
         ApiResponse apiResponse = ApiResponse.builder().message(ex.getMessage()).code(HttpStatus.FORBIDDEN).build();
         return new ResponseEntity<ApiResponse>(apiResponse,HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(BadApiRequestException.class)
+    public ResponseEntity<ApiResponse> badApiRequestHandler(BadApiRequestException ex){
+        logger.info("BadApiRequestException Handler Invoke!!!");
+        ApiResponse apiResponseMessage = new ApiResponse() ;
+        apiResponseMessage.setMessage(ex.getMessage());
+        apiResponseMessage.setCode(HttpStatus.BAD_REQUEST);;
+        return new ResponseEntity<ApiResponse>(apiResponseMessage,HttpStatus.BAD_REQUEST);
+    }
 }

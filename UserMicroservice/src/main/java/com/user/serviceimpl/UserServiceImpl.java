@@ -87,6 +87,7 @@ public class UserServiceImpl implements UserService {
         user.setGender(userDto.getGender());
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
+        user.setImage(userDto.getImage());
 
         // now save this user again in db
         this.userRepository.save(user);
