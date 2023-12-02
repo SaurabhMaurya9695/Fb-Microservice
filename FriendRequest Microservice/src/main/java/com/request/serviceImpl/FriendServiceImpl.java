@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FriendServiceImpl implements FriendService {
@@ -61,5 +62,15 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public List<FriendRequest> getByStatus(String status) {
         return this.requestRepo.findAllByStatus(status);
+    }
+
+    @Override
+    public ApiResponse deleteAllRequestOfUser(String userId) {
+        List<FriendRequest> friendRequestList = this.requestRepo.findAllBySenderFromId(userId);
+        List<Object> list = friendRequestList.stream().map(friendRequest -> {
+            this.requestRepo.deleteById(friendRequest.getFriendId());
+            return null;
+        }).collect(Collectors.toList());
+        return ApiResponse.builder().code(HttpStatus.OK).message("Friend Request Deleted for User " + userId + " Successfully").build();
     }
 }

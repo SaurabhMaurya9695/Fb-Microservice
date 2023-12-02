@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -59,6 +60,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getAllPostByUser(String userId) {
         return this.postRepo.findAllByUserId(userId);
+    }
+
+    @Override
+    public ApiResponse deleteAllPostOfUser(String userId) {
+        List<Post> allByUserId = this.postRepo.findAllByUserId(userId);
+        List<Object> list = allByUserId.stream().map(post -> {
+            this.postRepo.deleteById(post.getPostId());
+            return null;
+        }).collect(Collectors.toList());
+        return ApiResponse.builder().code(HttpStatus.OK).message("Post Deleted for User " + userId + " Successfully ").build();
     }
 
 

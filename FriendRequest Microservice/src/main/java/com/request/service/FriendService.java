@@ -26,4 +26,6 @@ public interface FriendService {
 
 
     List<FriendRequest> getByStatus(String status);
+
+    ApiResponse deleteAllRequestOfUser(String userId);
 }

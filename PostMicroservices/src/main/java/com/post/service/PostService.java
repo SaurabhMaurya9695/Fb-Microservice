@@ -29,4 +29,6 @@ public interface PostService {
     //getAllPostByUser
     List<Post> getAllPostByUser(String userId) ;
 
+   ApiResponse deleteAllPostOfUser(String userId) ;
+
 }

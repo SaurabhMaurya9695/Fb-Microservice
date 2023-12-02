@@ -67,5 +67,13 @@ public class PostController {
         return new ResponseEntity<>(postByUser , HttpStatus.OK);
     }
 
+    @DeleteMapping("/clear-post/users/{userId}")
+    public ResponseEntity<ApiResponse>  deleteAllPostOfUser(@PathVariable("userId") String userId) throws Exception {
+        ApiResponse response = this.postService.deleteAllPostOfUser(userId);
+        return new ResponseEntity<>(response , HttpStatus.OK);
+    }
+
+
+
 }
 
