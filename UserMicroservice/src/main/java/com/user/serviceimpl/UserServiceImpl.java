@@ -36,14 +36,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDto createUser(UserDto userDto) {
         String userId = UUID.randomUUID().toString();
         userDto.setUserId(userId);
-        userDto.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
         User user = modelMapper.map(userDto, User.class);
         User saved =  this.userRepository.save(user);
         return modelMapper.map(saved , UserDto.class);
@@ -98,8 +95,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse deleteUser(String userId) {
         User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Not Found With this UserId"));
+        //before delete user we have delete post for user
+        ApiResponse apiResponse = this.postService.deleteAllPostOfUser(userId);
+        //after that delete user's FR
+        ApiResponse response = this.friendRequestService.deleteAllRequestOfUser(userId);
         this.userRepository.delete(user);
-        return ApiResponse.builder().message("User Deleted Successfully").code(HttpStatus.OK).build();
+        return ApiResponse.builder().message("User Deleted Successfully" + " and " + apiResponse.getMessage() + " and " +
+                response.getMessage()).code(HttpStatus.OK).build();
 
     }
 
