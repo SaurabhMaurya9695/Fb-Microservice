@@ -6,6 +6,7 @@ import com.user.response.ApiResponse;
 import com.user.response.ImageResponse;
 import com.user.service.FileService;
 import com.user.service.UserService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -45,20 +46,43 @@ public class UserController {
 
     //getAllUser
     @GetMapping("/")
+    @CircuitBreaker(name = "getAllUserBreaker" , fallbackMethod = "getAllUserFallBackMethod")
     public ResponseEntity<List<UserDto>> getAllUser(){
         return ResponseEntity.ok(this.userService.getAllUser());
     }
 
+    private ResponseEntity<List<UserDto>> getAllUserFallBackMethod(Exception ex){
+        UserDto userDto = UserDto.builder().bio("This Is Fall Back bio").userId("1234").image("default.jpeg").
+                email("dummy@gmail.com").gender("Dummy").password("DUMMY").username("DUMMY")
+                .build();
+        UserDto userDto1 = UserDto.builder().bio("This Is Fall Back bio1").userId("12341").image("default1.jpeg").
+                email("dummy1@gmail.com").gender("Dummy1").password("DUMMY1").username("DUMMY1")
+                .build();
+        return ResponseEntity.ok(List.of(userDto , userDto1));
+    }
+
     //getSingleUser
     @GetMapping("/{userId}")
+    @CircuitBreaker(name = "getUserByIdCircuitBreaker" , fallbackMethod = "getUserByIdCircuitBreakerFallBackMethod")
     public ResponseEntity<UserDto> getUser(@PathVariable("userId") String userId){
         return ResponseEntity.ok(this.userService.getUserById(userId));
     }
 
+    private ResponseEntity<UserDto> getUserByIdCircuitBreakerFallBackMethod(String userId , Exception ex){
+        UserDto userDto = UserDto.builder().username("Fall Back ").password("Fall Back").userId("1234")
+                .gender("Dummy Male").image("dummy.jpeg").build();
+        return ResponseEntity.ok(userDto);
+    }
+
     //deleteUser
     @DeleteMapping ("/{userId}")
+    @CircuitBreaker(name = "deleteUserByIdCircuitBreaker" , fallbackMethod = "deleteUserIdCircuitBreakerFallBackMethod")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") String userId){
         return ResponseEntity.ok(this.userService.deleteUser(userId));
+    }
+
+    private ResponseEntity<ApiResponse> deleteUserIdCircuitBreakerFallBackMethod(String userId , Exception ex){
+        return ResponseEntity.ok(ApiResponse.builder().message("Some Server is down").code(HttpStatus.NO_CONTENT).build());
     }
 
     //updateUser
