@@ -73,3 +73,16 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         sliding-window-size: 10
         sliding-window-type: count_based
+  retry:
+    instances:
+      getAllUserRetry :
+        max-attempts: 3
+        wait-duration: 2s
+        retry-exceptions:
+          - java.lang.Exception
+      getUserByIdRetry:
+        max-attempts: 3
+        wait-duration: 2s
+      deleteUserByIdRetry:
+        max-attempts: 3
+        wait-duration: 2s

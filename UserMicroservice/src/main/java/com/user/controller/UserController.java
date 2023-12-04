@@ -7,6 +7,7 @@ import com.user.response.ImageResponse;
 import com.user.service.FileService;
 import com.user.service.UserService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -44,14 +45,20 @@ public class UserController {
         return new ResponseEntity<UserDto>(user , HttpStatus.CREATED);
     }
 
+    int retry = 0;
+
     //getAllUser
     @GetMapping("/")
-    @CircuitBreaker(name = "getAllUserBreaker" , fallbackMethod = "getAllUserFallBackMethod")
+//    @CircuitBreaker(name = "getAllUserBreaker" , fallbackMethod = "getAllUserFallBackMethod")
+    @Retry(name = "getAllUserRetry" , fallbackMethod = "getAllUserFallBackMethod")
     public ResponseEntity<List<UserDto>> getAllUser(){
+        logger.info("Retrying {} times " , retry);
+        retry++;
         return ResponseEntity.ok(this.userService.getAllUser());
     }
-
     private ResponseEntity<List<UserDto>> getAllUserFallBackMethod(Exception ex){
+        logger.error(
+                "Data server is either unavailable or malfunctioned due to {}", ex.getMessage());
         UserDto userDto = UserDto.builder().bio("This Is Fall Back bio").userId("1234").image("default.jpeg").
                 email("dummy@gmail.com").gender("Dummy").password("DUMMY").username("DUMMY")
                 .build();
@@ -63,12 +70,18 @@ public class UserController {
 
     //getSingleUser
     @GetMapping("/{userId}")
-    @CircuitBreaker(name = "getUserByIdCircuitBreaker" , fallbackMethod = "getUserByIdCircuitBreakerFallBackMethod")
+//    @CircuitBreaker(name = "getUserByIdCircuitBreaker" , fallbackMethod = "getUserByIdCircuitBreakerFallBackMethod")
+    @Retry(name = "getUserByIdRetry" , fallbackMethod = "getUserByIdCircuitBreakerFallBackMethod")
     public ResponseEntity<UserDto> getUser(@PathVariable("userId") String userId){
-        return ResponseEntity.ok(this.userService.getUserById(userId));
+        logger.info("Retrying {} times " , retry);
+        retry++;
+        ResponseEntity<UserDto> response = ResponseEntity.ok(this.userService.getUserById(userId));
+        return response;
     }
 
     private ResponseEntity<UserDto> getUserByIdCircuitBreakerFallBackMethod(String userId , Exception ex){
+        logger.error(
+                "Data server is either unavailable or malfunctioned due to {}", ex.getMessage());
         UserDto userDto = UserDto.builder().username("Fall Back ").password("Fall Back").userId("1234")
                 .gender("Dummy Male").image("dummy.jpeg").build();
         return ResponseEntity.ok(userDto);
@@ -76,8 +89,11 @@ public class UserController {
 
     //deleteUser
     @DeleteMapping ("/{userId}")
-    @CircuitBreaker(name = "deleteUserByIdCircuitBreaker" , fallbackMethod = "deleteUserIdCircuitBreakerFallBackMethod")
+//    @CircuitBreaker(name = "deleteUserByIdCircuitBreaker" , fallbackMethod = "deleteUserIdCircuitBreakerFallBackMethod")
+    @Retry(name = "deleteUserByIdRetry" ,fallbackMethod = "deleteUserIdCircuitBreakerFallBackMethod")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") String userId){
+        logger.info("Retrying {} times " , retry);
+        retry++;
         return ResponseEntity.ok(this.userService.deleteUser(userId));
     }
 
