@@ -36,11 +36,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public UserDto createUser(UserDto userDto) {
         String userId = UUID.randomUUID().toString();
         userDto.setUserId(userId);
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User user = modelMapper.map(userDto, User.class);
         User saved =  this.userRepository.save(user);
         return modelMapper.map(saved , UserDto.class);

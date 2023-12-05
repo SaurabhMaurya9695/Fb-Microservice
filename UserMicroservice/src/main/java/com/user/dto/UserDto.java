@@ -24,6 +24,8 @@ public class UserDto {
     private String email;  // end with com ,  in , org
     private Date dob = new Date();  // at least 13 years old
     private String gender ;
+    @NotBlank(message = "Password is required")
+    @Size(min = 8 , max = 16 , message = "Please Write Password of min char 8 and max 16")
     private String password;
     @NotBlank(message = "Please Write Something about Yourself")
     private String bio ;
