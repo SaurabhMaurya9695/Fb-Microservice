@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequestMapping("/users")
@@ -45,15 +46,13 @@ public class UserController {
         return new ResponseEntity<UserDto>(user , HttpStatus.CREATED);
     }
 
-    int retry = 0;
 
     //getAllUser
     @GetMapping("/")
-//    @CircuitBreaker(name = "getAllUserBreaker" , fallbackMethod = "getAllUserFallBackMethod")
-    @Retry(name = "getAllUserRetry" , fallbackMethod = "getAllUserFallBackMethod")
+    @CircuitBreaker(name = "getAllUserBreaker" , fallbackMethod = "getAllUserFallBackMethod")
+    @Retry(name = "getAllUserRetry")
     public ResponseEntity<List<UserDto>> getAllUser(){
-        logger.info("Retrying {} times " , retry);
-        retry++;
+        logger.info("Making a request at {} time" , LocalDateTime.now());
         return ResponseEntity.ok(this.userService.getAllUser());
     }
     private ResponseEntity<List<UserDto>> getAllUserFallBackMethod(Exception ex){
@@ -70,11 +69,10 @@ public class UserController {
 
     //getSingleUser
     @GetMapping("/{userId}")
-//    @CircuitBreaker(name = "getUserByIdCircuitBreaker" , fallbackMethod = "getUserByIdCircuitBreakerFallBackMethod")
-    @Retry(name = "getUserByIdRetry" , fallbackMethod = "getUserByIdCircuitBreakerFallBackMethod")
+    @CircuitBreaker(name = "getUserByIdCircuitBreaker" , fallbackMethod = "getUserByIdCircuitBreakerFallBackMethod")
+    @Retry(name = "getUserByIdRetry")
     public ResponseEntity<UserDto> getUser(@PathVariable("userId") String userId){
-        logger.info("Retrying {} times " , retry);
-        retry++;
+        logger.info("Making a request at {} time" , LocalDateTime.now());
         ResponseEntity<UserDto> response = ResponseEntity.ok(this.userService.getUserById(userId));
         return response;
     }
@@ -89,11 +87,10 @@ public class UserController {
 
     //deleteUser
     @DeleteMapping ("/{userId}")
-//    @CircuitBreaker(name = "deleteUserByIdCircuitBreaker" , fallbackMethod = "deleteUserIdCircuitBreakerFallBackMethod")
-    @Retry(name = "deleteUserByIdRetry" ,fallbackMethod = "deleteUserIdCircuitBreakerFallBackMethod")
+    @CircuitBreaker(name = "deleteUserByIdCircuitBreaker" , fallbackMethod = "deleteUserIdCircuitBreakerFallBackMethod")
+    @Retry(name = "deleteUserByIdRetry")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") String userId){
-        logger.info("Retrying {} times " , retry);
-        retry++;
+        logger.info("Making a request at {} time" , LocalDateTime.now());
         return ResponseEntity.ok(this.userService.deleteUser(userId));
     }
 

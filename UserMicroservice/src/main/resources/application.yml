@@ -73,16 +73,28 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         sliding-window-size: 10
         sliding-window-type: count_based
+    circuit-breaker-aspect-order: 1
   retry:
     instances:
       getAllUserRetry :
         max-attempts: 3
         wait-duration: 2s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
         retry-exceptions:
-          - java.lang.Exception
+          - org.springframework.web.client.RestClientException
       getUserByIdRetry:
         max-attempts: 3
         wait-duration: 2s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        retry-exceptions:
+          - org.springframework.web.client.RestClientException
       deleteUserByIdRetry:
         max-attempts: 3
         wait-duration: 2s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        retry-exceptions:
+          - org.springframework.web.client.RestClientException
+    retry-aspect-order: 2
