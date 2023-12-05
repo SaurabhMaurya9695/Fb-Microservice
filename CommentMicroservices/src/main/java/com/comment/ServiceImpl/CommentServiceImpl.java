@@ -4,25 +4,62 @@ import com.comment.entity.Comment;
 import com.comment.repo.CommentRepository;
 import com.comment.response.ApiResponse;
 import com.comment.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    String s = "comments";
+
+    @Autowired
+    private KafkaTemplate<String,Comment> kafkaTemplate;
+
+    KafkaConsumer<String, Comment> consumer ;
+
+
     @Override
     public Comment createComment(Comment comment) {
-        return this.commentRepository.save(comment);
+        Comment comment1 = this.commentRepository.save(comment);
+        Message<Comment> message = MessageBuilder
+                .withPayload(comment1)
+                .setHeader(KafkaHeaders.TOPIC, "comments")
+                .build();
+        kafkaTemplate.send(message);
+        return comment;
     }
+
+    @KafkaListener(topics = "comments" , groupId = "comment-group")
+    public void getMessage(Comment comment){
+        log.info("Comment is {} :" ,comment.toString());
+        System.out.println(comment.getComments());
+    }
+
+
 
     @Override
     public List<Comment> getAllComment() {
-        return this.commentRepository.findAll();
+        List<Comment> all = this.commentRepository.findAll();
+//        List<Comment> all = new ArrayList<>();
+//        ConsumerRecords<String, Comment> messages = this.consumer.poll(Duration.ofDays(100000L));
+//        for (ConsumerRecord<String, Comment> record : messages) {
+//            all.add(record.value());
+//        }
+        return all ;
     }
 
     @Override
