@@ -3,7 +3,9 @@ package com.post.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -23,5 +25,8 @@ public class Post {
     private Date date = new Date();
 
     private String userId;
+
+    @Transient
+    private List<Comment> commentList = new ArrayList<>();
 
 }

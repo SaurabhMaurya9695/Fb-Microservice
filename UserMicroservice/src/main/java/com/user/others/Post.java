@@ -3,6 +3,7 @@ package com.user.others;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,4 +18,5 @@ public class Post {
     private Long likeCnt ;
     private Date date;
     private String userId;
+    private List<Comment> commentList;
 }

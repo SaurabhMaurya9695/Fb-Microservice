@@ -1,6 +1,8 @@
 package com.post.serviceImpl;
 
+import com.post.entity.Comment;
 import com.post.entity.Post;
+import com.post.feignClient.CommentService;
 import com.post.repo.PostRepo;
 import com.post.response.ApiResponse;
 import com.post.service.PostService;
@@ -17,6 +19,9 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepo postRepo ;
 
+    @Autowired
+    private CommentService commentService;
+
     @Override
     public Post createPost(Post posts) {
         return this.postRepo.save(posts);
@@ -24,12 +29,22 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAllPost() {
-        return this.postRepo.findAll();
+        List<Post> posts = this.postRepo.findAll();
+        List<Post> list = posts.stream().map(post -> {
+            List<Comment> commentOfPost = this.commentService.getAllCommentOfPost(post.getPostId());
+            post.setCommentList(commentOfPost);
+            return post;
+        }).collect(Collectors.toList());
+        return list;
     }
 
     @Override
     public Post getSinglePost(Integer postId) throws Exception {
-        return this.postRepo.findById(postId).orElseThrow(() -> new Exception("PostId Not Found"));
+        Post post = this.postRepo.findById(postId).orElseThrow(() -> new Exception("PostId Not Found"));
+        //before sending post we have to send comments on the post
+        List<Comment> commentOfPost = this.commentService.getAllCommentOfPost(postId);
+        post.setCommentList(commentOfPost);
+        return post;
     }
 
     @Override
@@ -59,7 +74,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAllPostByUser(String userId) {
-        return this.postRepo.findAllByUserId(userId);
+        List<Post> postsofUsers = this.postRepo.findAllByUserId(userId);
+        List<Post> list = postsofUsers.stream().map(post -> {
+            List<Comment> commentOfPost = this.commentService.getAllCommentOfPost(post.getPostId());
+            post.setCommentList(commentOfPost);
+            return post;
+        }).collect(Collectors.toList());
+        return list;
     }
 
     @Override
