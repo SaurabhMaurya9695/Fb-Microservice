@@ -22,9 +22,9 @@ function App() {
           <CssBaseline/>
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Login/>} />
             <Route path="/logout" element={<Logout/>} />
-            <Route path="/register" element={<Register/>} />
+            <Route path="/login" element={<Register/>} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
