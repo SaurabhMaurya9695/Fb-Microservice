@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -16,6 +16,15 @@ import {
 import { Col, Form, Row } from "react-bootstrap";
 
 const Login = () => {
+
+  const [formField , setformField] = useState({
+      name : "",
+      email : "",
+      gender :"",
+      password :"",
+      bio :""
+  })
+
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
@@ -24,7 +33,19 @@ const Login = () => {
     const handleSubmit = (event) =>{
       event.preventDefault();
       console.log("ok");
+      console.log(formField);
     }
+
+    const handleChange =(value , event)=>{
+      console.log(event);
+      setformField({
+        ...formField,
+        [value]: event.target.value
+      })
+
+
+    }
+
 
     return (
       <>
@@ -36,51 +57,66 @@ const Login = () => {
                 color="text.secondary"
                 gutterBottom
               >
-                <h5>Complete this form to login in Connector!!</h5>
               </Typography>
               <Form onSubmit={handleSubmit}>
                 <FormControl>
                   <TextField
                     className="mt-2"
-                    id="outlined-multiline-flexible"
+                    id="name"
                     label="Enter Your Name"
                     type="text"
                     sx={{
                       width: 500,
                       maxWidth: "100%",
                     }}
+                    name="name"
+                    value={formField.name}
+                    onChange={(event)=> handleChange("name" , event)}
                   ></TextField>
                 </FormControl>
                 <FormControl>
                   <TextField
                     className="mt-2"
-                    id="outlined-multiline-flexible"
+                    id="email"
                     label="Enter Your Email"
                     type="email"
                     sx={{
                       width: 500,
                       maxWidth: "100%",
                     }}
+                    name="email"
+                    value={formField.email}
+                    onChange={(event)=> handleChange("email" , event)}
                   ></TextField>
                 </FormControl>
                 <FormControl>
                   <TextField
                     className="mt-2"
-                    id="outlined-multiline-flexible"
+                    id="password"
                     label="Enter Your Password"
                     type="password"
                     sx={{
                       width: 500,
                       maxWidth: "100%",
                     }}
+                    name="password"
+                    value={formField.password}
+                    onChange={(event)=> handleChange("password" , event)}
                   ></TextField>
                 </FormControl>
                 <FormControl className="mt-2">
-                  <div className="container">
-                    <div className="radioBox">
+                <div className="container">
+                    <div className={isNonMobileScreens ?"radioBox":"radioBox1" }>
                       <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
                         name="controlled-radio-buttons-group"
+                        value={formField.gender}
+                        onChange={(event)=>{
+                          setformField({
+                            ...formField,
+                            "gender":event.target.value
+                          })
+                        }}
                       >
                         <div>
                           <Row>
@@ -107,7 +143,7 @@ const Login = () => {
                 <FormControl>
                   <TextField
                     className="mt-2"
-                    id="outlined-multiline-flexible"
+                    id="text"
                     label="Enter Your discription "
                     type="text"
                     rows={4}
@@ -116,11 +152,16 @@ const Login = () => {
                       maxWidth: "100%",
                     }}
                     multiline
+                    name="bio"
+                    value={formField.bio}
+                    onChange={(event)=> handleChange("bio" , event)}
                   ></TextField>
                 </FormControl>
+                <div className="container">
                 <Button className="mt-3" variant="contained" type="submit">
                   Register Here
                 </Button>
+                </div>
               </Form>
             </CardContent>
           </Card>
@@ -151,7 +192,9 @@ const Login = () => {
           backgroundColor={theme.palette.background.alt}
         >
           <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-            Welcome to Connector, to Connect The Social Media for You!!
+            Welcome to Connector ,
+            <br/>Complete this form to login in Connector!!
+            
           </Typography>
           <div className="container">{loginForm()}</div>
         </Box>
