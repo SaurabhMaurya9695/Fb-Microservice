@@ -14,9 +14,13 @@ import {
   useTheme,
 } from "@mui/material";
 import { Col, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import WelNav from "../Component/WelNav"
 
 const Login = () => {
 
+  const { palette } = useTheme();
+  const navigate = useNavigate();
   const [formField , setformField] = useState({
       name : "",
       email : "",
@@ -24,8 +28,6 @@ const Login = () => {
       password :"",
       bio :""
   })
-
-  const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
   const loginForm = () => {
@@ -37,13 +39,22 @@ const Login = () => {
     }
 
     const handleChange =(value , event)=>{
-      console.log(event);
       setformField({
         ...formField,
         [value]: event.target.value
       })
 
 
+    }
+
+    const resetForm = () =>{
+      setformField({
+        name : "",
+        email : "",
+        gender :"",
+        password :"",
+        bio :""
+      })
     }
 
 
@@ -162,6 +173,25 @@ const Login = () => {
                   Register Here
                 </Button>
                 </div>
+
+                <Typography
+                  onClick={() => {
+                    navigate("/register")
+                    resetForm();
+                  }}
+                
+              sx={{
+                textDecoration: "underline",
+                color: palette.primary.main,
+                "&:hover": {
+                  cursor: "pointer",
+                  color: palette.primary.dark,
+                },
+              }}
+            >
+              
+                 "Don't have an account? Sign Up here."
+            </Typography>
               </Form>
             </CardContent>
           </Card>
@@ -172,33 +202,8 @@ const Login = () => {
 
   return (
     <div>
-      <Box>
-        <Box
-          width="100%"
-          backgroundColor={theme.palette.background.alt}
-          p="1rem 6%"
-          textAlign="center"
-        >
-          <Typography fontWeight="bold" fontSize="32px" color="primary">
-            Connector
-          </Typography>
-        </Box>
-        <Box
-          className="text-center"
-          width={isNonMobileScreens ? "50%" : "93%"}
-          p="2rem"
-          m="2rem auto"
-          borderRadius="1.5rem"
-          backgroundColor={theme.palette.background.alt}
-        >
-          <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-            Welcome to Connector ,
-            <br/>Complete this form to login in Connector!!
-            
-          </Typography>
-          <div className="container">{loginForm()}</div>
-        </Box>
-      </Box>
+      <WelNav loginForm={loginForm} text={"Complete this form to Register in Connector!!"}/>
+      
     </div>
   );
 };

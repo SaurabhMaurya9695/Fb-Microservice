@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import ChangeThemeProvider from  "./Context/theme.provider"
 import { useSelector } from 'react-redux';
-
+import Register from './Pages/register';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -24,6 +24,7 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/logout" element={<Logout/>} />
+            <Route path="/register" element={<Register/>} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
