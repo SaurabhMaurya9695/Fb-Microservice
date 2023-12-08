@@ -7,7 +7,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { useMemo } from 'react';
 import { themeSettings } from './theme';
-import ChangeThemeProvider from  "./Context/theme.provider"
 import { useSelector } from 'react-redux';
 import Register from './Pages/register';
 
@@ -16,7 +15,6 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   
   return (
-    <ChangeThemeProvider >
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline/>
@@ -28,7 +26,6 @@ function App() {
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
-    </ChangeThemeProvider>
   );
 }
 

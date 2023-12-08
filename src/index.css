@@ -21,3 +21,19 @@ code {
   position: relative;
   right: 75%;
 }
+
+.ImageContainer{
+  display: flex;
+  margin-top: 20px;
+}
+
+.ImageAvatar{
+  max-width: 35px;
+  max-height: 35px;
+}
+
+.TextH{
+  font-weight: 500;
+  margin-left: 10px;
+  margin-top: 10px;
+}
