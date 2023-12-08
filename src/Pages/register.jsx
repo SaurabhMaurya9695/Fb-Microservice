@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../Service/user.service";
 
 const Register = () => {
 
@@ -27,6 +28,12 @@ const Register = () => {
       event.preventDefault();
       console.log("ok");
       console.log(formField);
+      loginUser(formField).then((data)=>{
+        console.log(data);
+        navigate("/")
+      }).catch((error)=>{
+        console.log(error);
+      })
     };
 
     const handleChange = (value, event) => {
@@ -91,7 +98,7 @@ const Register = () => {
 
                 <Typography
                   onClick={() => {
-                    navigate("/login")
+                    navigate("/register")
                     resetForm();
                   }}
                 

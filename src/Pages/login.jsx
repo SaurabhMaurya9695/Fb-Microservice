@@ -16,13 +16,14 @@ import {
 import { Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import WelNav from "../Component/WelNav"
+import { createUser } from "../Service/user.service";
 
 const Login = () => {
 
   const { palette } = useTheme();
   const navigate = useNavigate();
   const [formField , setformField] = useState({
-      name : "",
+      username : "",
       email : "",
       gender :"",
       password :"",
@@ -36,6 +37,14 @@ const Login = () => {
       event.preventDefault();
       console.log("ok");
       console.log(formField);
+      createUser(formField).then((data)=>{
+        console.log(data);
+        resetForm();
+      }).catch((data)=>{
+        console.log(data);
+      }).finally(() =>{
+        console.log("finally done");
+      })
     }
 
     const handleChange =(value , event)=>{
@@ -49,7 +58,7 @@ const Login = () => {
 
     const resetForm = () =>{
       setformField({
-        name : "",
+        username : "",
         email : "",
         gender :"",
         password :"",
@@ -60,7 +69,7 @@ const Login = () => {
 
     return (
       <>
-        <Box sx={{ minWidth: 275  , boxShadow: 1}}>
+        <Box sx={{ minWidth: 275 }}>
           <Card>
             <CardContent>
               <Typography
@@ -80,9 +89,9 @@ const Login = () => {
                       width: 500,
                       maxWidth: "100%",
                     }}
-                    name="name"
-                    value={formField.name}
-                    onChange={(event)=> handleChange("name" , event)}
+                    name="username"
+                    value={formField.username}
+                    onChange={(event)=> handleChange("username" , event)}
                   ></TextField>
                 </FormControl>
                 <FormControl>
@@ -176,7 +185,7 @@ const Login = () => {
 
                 <Typography
                   onClick={() => {
-                    navigate("/register")
+                    navigate("/login")
                     resetForm();
                   }}
                 
