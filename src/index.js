@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import authReducer from "./redux/state" ;
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   persistStore,
   persistReducer,
