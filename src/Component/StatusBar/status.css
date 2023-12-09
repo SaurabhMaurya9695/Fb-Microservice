@@ -1,0 +1,12 @@
+.status_container{
+    display: flex;
+    width: 600px;
+    overflow-x: scroll;
+}
+
+.statusbar_status{
+    height: 200px;
+    width: 120px;
+    margin: 20px 5px;
+    border-radius: 15px;
+}
