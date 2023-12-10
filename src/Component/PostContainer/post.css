@@ -1,0 +1,55 @@
+.posts_container{
+    width: 600px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.post_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post_header_inner_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_me{
+    margin-right: 111px;
+}
+.post_discription{
+    display: flex;
+    font-size: 1rem;
+    margin-top: 8px;
+    margin-left: 12px;
+}
+.post_like_count{
+    margin-top: 2px;
+    margin-left: 8px;
+    font-size: 15px;
+}
+
+.post_footer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 3px;
+}
+
+.css-16s6rpz-MuiDivider-root {
+    margin-top: 8px !important;
+    border-color: rgb(255 255 255 / 82%);
+}
+
+.css-1pvjmf-MuiDivider-root {
+    margin-top: 8px !important;
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.css-tyw1gh-MuiButtonBase-root-MuiIconButton-root {
+    color: rgba(0, 0, 0, 0.26) !important;
+}
+
+/* color: rgba(0, 0, 0, 0.26); */
