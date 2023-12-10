@@ -14,11 +14,14 @@ import {
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../Service/user.service";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../redux/state";
 
 const Register = () => {
 
   const { palette } = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formField, setformField] = useState({
     email: "",
     password: ""
@@ -30,6 +33,12 @@ const Register = () => {
       console.log(formField);
       loginUser(formField).then((data)=>{
         console.log(data);
+        dispatch(
+          setLogin({
+            user: data.user,
+            token: data.jwttoken,
+          })
+        )
         navigate("/")
       }).catch((error)=>{
         console.log(error);

@@ -185,7 +185,7 @@ const Login = () => {
 
                 <Typography
                   onClick={() => {
-                    navigate("/login")
+                    navigate("/register")
                     resetForm();
                   }}
                 
