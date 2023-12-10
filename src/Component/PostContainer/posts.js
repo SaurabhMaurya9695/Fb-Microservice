@@ -1,21 +1,23 @@
 import { Avatar, Button, Divider, IconButton, ListItem, Paper, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import AddIcon from '@mui/icons-material/Add';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { pink } from '@mui/material/colors';
 import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
 import "../UploadSection/upload.css"
 
-const Posts = () => {
+const Posts = ({p}) => {
   
   const { palette } = useTheme();
   const [changeLike,setChangeLike] = useState(false)
   const [changeComment,setChangeComment] = useState(false)
   const [changeShare,setChangeShare] = useState(false)
-  const [cnt , setCnt] = useState(0);
+  const [cnt , setCnt] = useState(p.like);
   const [commentBox , setCommentBox] = useState(false);
-  const [commentlist , setCommentList] = useState();
+  const [commentlist , setCommentList] = useState({
+    value : ''
+  })
 
   const list = [];
   const changeColorForLike = ()=>{
@@ -42,25 +44,41 @@ const Posts = () => {
 
   const saveComment = () =>{
     console.log(commentlist)
+    list.push(commentlist)
+    console.log(list.length);
+    console.log(list)
   }
+
+  
 
   const showCommentBox = () =>{
     return (<>
-    {JSON.stringify(commentlist)}
       <div>
-      <Paper className='upload_container'>
+      <Paper className='post_comment_container'>
         <div className='upload_top'>
           <div>
             <Avatar className='upload_image' src='https://scontent.fknu1-5.fna.fbcdn.net/v/t39.30808-1/387684188_3540021242932260_4946501197515680151_n.jpg?stp=dst-jpg_p148x148&_nc_cat=106&ccb=1-7&_nc_sid=4da83f&_nc_ohc=dXZlwmmT--gAX_tKz5D&_nc_ht=scontent.fknu1-5.fna&oh=00_AfBTI1XJZ1izSU2wXLNuQRSOuo8AM-ltFUDb6TJWqzS4iA&oe=657822CF'/>
           </div>
           <div>
-            <input className='upload_text' type='text' placeholder="what's on your mind ?" 
-            onChange={event => setCommentList(event.target.value)}/>
+            <input className='upload_text' type='text' placeholder="Write Your Comment ?" 
+            onChange={event => setCommentList(event.target.value)}
+            value={commentlist.value}
+            name={commentlist.value} />
             <Button onClick={(event) => saveComment()}>Save Comment</Button>
           </div>
         </div>
       </Paper>
     </div>
+    </>)
+  }
+
+  const showCommentList = ()=>{
+    return (<>
+      {
+        list.map(x =>{
+          return <ListItem > {x.value}</ListItem>
+        })
+      }
     </>)
   }
 
@@ -86,12 +104,12 @@ const Posts = () => {
                   },
                 }}
             >
-              Saurabh Maurya
+              {p.name}
               </Typography>
               </div>
             </div>
             <div className='add_me mt-2'>
-              <AddIcon fontSize="large" sx={{ color: pink[500] ,
+              <PersonAddIcon fontSize="large" sx={{ color: pink[500] ,
                "&:hover": {
                   cursor: "pointer",
                   color: palette.primary.dark,
@@ -101,18 +119,18 @@ const Posts = () => {
 
         {/* discription */}
         <div className='post_discription'>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit tempora eos praesentium. Est reprehenderit nisi molestiae, veritatis voluptatibus error odio tempora consequatur! Nemo, id quo molestiae et tempora sequi repudiandae. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit repellat cum autem at, explicabo in dignissimos maiores asperiores quisquam, unde repudiandae aperiam a esse. Voluptatum facilis totam veniam iure consectetur.</p>
+          <p>{p.post_discription}</p>
         </div>
 
         {/* Image Section */}
-        <div className='post_image'>
-          <img alt='NOImage' src="https://scontent.flko9-1.fna.fbcdn.net/v/t39.30808-6/409334003_864906305298447_2367497083654687882_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c42490&_nc_ohc=jiFCOYJFqHAAX9VWSaD&_nc_ht=scontent.flko9-1.fna&oh=00_AfDJ4kRVfqKs-4u96tbfxAC1OaccaSDONCT097t715Pygw&oe=6579D950" width="600px"></img>
-        </div>
+        {p.post_url && <div className='post_image'>
+          <img alt='NOImage' src={p.post_url} width="600px"></img>
+        </div>}
 
         {/* Like count  */}
-        <div className='post_like_count'>
+        {cnt > 0 && <div className='post_like_count'>
           liked by {cnt}
-        </div>
+        </div>}
         <Divider sx={{color:"white"}} />
         {/* comment - like and share section */}
         <div className='post_footer'>
@@ -131,9 +149,10 @@ const Posts = () => {
             <ShareIcon sx={changeShare && { color:'cyan'}} /> <span className='ms-2'> Share</span>
           </IconButton>
           </div>
-        </div>
-        {JSON.stringify(list)}   
+        </div>  
+        <Divider sx={{color:"white"}} />
         {commentBox && showCommentBox()}
+        {list && showCommentList()}
 
 
 

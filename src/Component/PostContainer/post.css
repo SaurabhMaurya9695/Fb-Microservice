@@ -2,6 +2,7 @@
     width: 600px;
     margin-top: 20px;
     border-radius: 20px;
+    margin-left: 5px;
 }
 
 .post_header{
@@ -26,9 +27,10 @@
     margin-left: 12px;
 }
 .post_like_count{
-    margin-top: 2px;
+    margin-top: 5px;
     margin-left: 8px;
     font-size: 15px;
+    font-weight: 900;
 }
 
 .post_footer{
