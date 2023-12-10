@@ -1,0 +1,30 @@
+.sponserCard_container{
+    width: 300px;
+    margin-top: 20px;
+    border-radius: 20px;
+    margin-left: 5px;
+    height: 250px;
+    border-radius: 20px !important;
+}
+
+.sponserCard_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sponser_image{
+    margin-left: 2rem;
+    margin-top: 4px;
+}
+
+.image_src{
+    border-radius: 10px !important;
+}
+
+.sponser_text{
+    height: 10px;
+    width: 20px;
+
+}
+

@@ -3,6 +3,7 @@ import Navbar from "../Component/Navbar"
 import { Row , Col } from 'react-bootstrap'
 import LeftSideBar from '../Component/LeftSideBar'
 import MiddleBar from '../Component/MiddleBar'
+import Friends from '../Component/RightSide/friends'
 const Home = () => {
   return (
     <div>
@@ -16,7 +17,7 @@ const Home = () => {
             <h1>{<MiddleBar/>}</h1>
           </Col>
           <Col md={3}>
-            <h1>Right Side</h1>
+            <h1><Friends/></h1>
           </Col>
         </Row>
       </div>
