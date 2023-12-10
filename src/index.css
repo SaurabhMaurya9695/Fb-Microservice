@@ -37,3 +37,9 @@ code {
   margin-left: 10px;
   margin-top: 10px;
 }
+
+.middleContainer{
+  margin-left: 50 !important;
+  overflow-y: scroll;
+  height: 700px;
+}
