@@ -3,7 +3,7 @@
     margin-top: 20px;
     border-radius: 20px;
     margin-left: 5px;
-    height: 250px;
+    height: 350px;
     border-radius: 20px !important;
 }
 
@@ -23,8 +23,40 @@
 }
 
 .sponser_text{
-    height: 10px;
-    width: 20px;
-
+    height: 20px;
 }
 
+.friends_container{
+    overflow-y: scroll;
+    height: 250px;
+}
+
+.friends_left{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: '200px';
+}
+
+.friends_name {
+    margin-right: 15px;
+    font-size: 20px;
+    font-weight: 700 !important;
+}
+
+.friends_name:hover {
+    color: #00D5FA;
+}
+
+.accepted_request{
+    font-size: 15px;
+    font-weight: 500;
+    color: #2dfb2d;
+}
+
+.request_rejected{
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 20%;
+    margin-top: 2%;
+}

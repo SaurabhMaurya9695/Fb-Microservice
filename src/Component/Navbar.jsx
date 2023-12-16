@@ -18,8 +18,9 @@ import {
   Notifications,
   Help,
   Menu,
-  Close,
+  Close
 } from "@mui/icons-material";
+import PagesIcon from "@mui/icons-material/Pages"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -76,6 +77,7 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
+          <PagesIcon onClick={(event) => navigate('/posts')}/>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
