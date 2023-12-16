@@ -13,13 +13,14 @@ import Register from './Pages/register';
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const token = useSelector((state) => state.token);
   
   return (
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline/>
           <Routes>
-            <Route path="/" element={<Home/>} />
+            {token && <Route path="/" element={<Home/>} /> }
             <Route path="/register" element={<Login/>} />
             <Route path="/logout" element={<Logout/>} />
             <Route path="/login" element={<Register/>} />

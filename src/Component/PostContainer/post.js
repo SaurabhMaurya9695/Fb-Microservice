@@ -57,7 +57,7 @@ const Post = () => {
       {
         post_id: 4,
         name : "Saurabh Maurya 1",
-        post_url : "https://scontent.fknu1-5.fna.fbcdn.net/v/t39.30808-6/387068750_3538823026385415_678768102448299056_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=3635dc&_nc_ohc=HFxYaciyGPoAX9-c9pr&_nc_ht=scontent.fknu1-5.fna&oh=00_AfDwg1_q7SPYPHjFwWHh9Lx0Yb14W5Y22KItuXd7eFEdEw&oe=657BBAE5",
+        post_url : "https://scontent.fknu1-4.fna.fbcdn.net/v/t39.30808-6/408549094_1775639029616650_2856200736722972040_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=3635dc&_nc_ohc=CQQuidhNBtYAX-k2LtA&_nc_ht=scontent.fknu1-4.fna&oh=00_AfDdA9LL7G77eYfmJmxifSQ_8kEwjJHHjirs1x5uP4yRlw&oe=6582F8C2",
         post_discription:"This is post 4",
         like : 900 ,
         comments : [

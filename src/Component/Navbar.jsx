@@ -23,7 +23,7 @@ import {
 import PagesIcon from "@mui/icons-material/Pages"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "../redux/state";
 
 
@@ -34,6 +34,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const user = useSelector((state) => state.user);
 
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
@@ -41,7 +42,6 @@ const Navbar = () => {
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
-  const fullName = "Saurabh Maurya"
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -107,7 +107,7 @@ const Navbar = () => {
               input={<InputBase />}
             >
               <MenuItem>
-                <Typography>Saurabh Maurya</Typography>
+                <Typography>{user.username}</Typography>
               </MenuItem>
               <MenuItem>Log Out</MenuItem>
             </Select>
@@ -182,7 +182,7 @@ const Navbar = () => {
                 input={<InputBase />}
               >
                 <MenuItem>
-                  <Typography>{fullName}</Typography>
+                  <Typography>{user.username}</Typography>
                 </MenuItem>
                 <MenuItem >
                   Log Out
