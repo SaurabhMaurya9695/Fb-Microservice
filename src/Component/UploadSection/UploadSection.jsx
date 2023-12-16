@@ -1,6 +1,23 @@
 import React from 'react'
 import "./upload.css";
-import { Avatar, Paper } from '@mui/material';
+import { Avatar, Button, Divider, Paper, styled } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import SendIcon from '@mui/icons-material/Send';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
+
 const UploadSection = () => {
   return (
     <div>
@@ -11,6 +28,26 @@ const UploadSection = () => {
           </div>
           <div>
             <input className='upload_text' type='text' placeholder="what's on your mind ?"/>
+          </div>
+        </div>
+        <Divider sx={{color:"white"}} />
+        <div className="upload_bottom">
+          <div>
+            <Button component="label"  startIcon={<CloudUploadIcon />} size='medium'>
+              Image
+              <VisuallyHiddenInput type="file" />
+            </Button>
+          </div>
+          <div>
+            <Button component="label"  startIcon={<OndemandVideoIcon />} size='medium'>
+              Video
+              <VisuallyHiddenInput type="file" />
+            </Button>
+          </div>
+          <div >
+            <Button  endIcon={<SendIcon />}>
+              Upload Post
+            </Button>
           </div>
         </div>
       </Paper>

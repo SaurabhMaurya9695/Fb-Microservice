@@ -6,6 +6,7 @@ import { pink } from '@mui/material/colors';
 import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
 import "../UploadSection/upload.css"
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Posts = ({p}) => {
   
@@ -108,12 +109,15 @@ const Posts = ({p}) => {
               </Typography>
               </div>
             </div>
-            <div className='add_me mt-2'>
+            <div className='add_me mt-2 '>
               <PersonAddIcon fontSize="large" sx={{ color: pink[500] ,
                "&:hover": {
                   cursor: "pointer",
                   color: palette.primary.dark,
                 },}}/>
+                <Button  className='ms-4' startIcon={<DeleteIcon />} size='large'>
+                  Delete Post
+                </Button>
             </div>
         </div>
 

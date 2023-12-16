@@ -1,9 +1,8 @@
 .upload_container{
-    height: 120px;
+    height: 140px;
     width: 600px;
     border-radius: 15px;
     margin-left: 5px;
-    display: flex;
 }
 
 .upload_text{
@@ -26,4 +25,10 @@
 .upload_image{
     margin-left: 15px;
     margin-top: 15px;
+}
+
+.upload_bottom{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
