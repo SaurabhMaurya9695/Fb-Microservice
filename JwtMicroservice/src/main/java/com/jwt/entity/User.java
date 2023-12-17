@@ -26,7 +26,8 @@ public class User implements UserDetails {
     private String gender ;
     private String password; //secure min length 8 and max length 16
     private String bio ;
-
+    private String image;
+    
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
