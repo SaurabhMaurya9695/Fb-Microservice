@@ -1,6 +1,6 @@
 import axios from "axios";
 import { APIGATEWAY_BASE_URL, JWT_BASE_URL, USER_BASE_URL } from "./helper.service";
-import { useSelector } from "react-redux";
+
 
 export const publicAxios = axios.create({
   baseURL: USER_BASE_URL,
@@ -21,7 +21,7 @@ export const privateAxios = axios.create({
 
 privateAxios.interceptors.request.use(
   (config) => {
-    const token = useSelector((state)=> state.token)
+    const token = localStorage.getItem("token");
     if (token) {
         console.log(config.headers.common)
         config.headers["Authorization"] = `Bearer ${token}`;

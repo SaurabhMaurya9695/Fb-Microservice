@@ -1,8 +1,7 @@
 import { Paper, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './sponser.css'
 import { useSelector } from 'react-redux';
-import { getUserImage } from '../../Service/user.service';
 import { USER_BASE_URL } from '../../Service/helper.service';
 
 const SponserCard = () => {

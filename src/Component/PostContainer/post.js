@@ -76,7 +76,7 @@ const Post = () => {
       {/* <Posts /> */}
       {
         posts?.map(x =>{
-          return <Posts p = {x}/>
+          return <Posts p = {x} key={x.post_id}/>
         })
       }
     </div>

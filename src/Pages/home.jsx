@@ -4,7 +4,26 @@ import { Row , Col } from 'react-bootstrap'
 import LeftSideBar from '../Component/LeftSideBar'
 import MiddleBar from '../Component/MiddleBar'
 import Friends from '../Component/RightSide/friends'
+import { getAllPost } from '../Service/post.service'
 const Home = () => {
+
+  const [post , setPost] = useState(null);
+
+  useEffect(()=>{
+    getPosts();
+  },[]);
+
+  const getPosts = () =>{
+    getAllPost().then((data)=>{
+      console.log(data);
+      setPost(data);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
+
+ 
+
   return (
     <div>
       <Navbar/>

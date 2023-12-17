@@ -18,10 +18,10 @@ export const authSlice = createSlice({
     setLogin: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      localStorage.setItem("token" , action.payload.token);
     },
     setLogout: (state) => {
-      state.user = null;
-      state.token = null;
+      return initialState;
     },
     setFriends: (state, action) => {
       if (state.user === null) {
@@ -34,12 +34,12 @@ export const authSlice = createSlice({
       if (state.user === null) {
         console.log("User's Posts not exist :(");
       } else {
-        state.user.friends = action.payload.user.posts;
+        state.posts = action.payload.user.post;
       }
     },
   },
 });
 
 
-export const {setFriends , setLogin , setLogout , setMode} = authSlice.actions ;
+export const {setFriends , setLogin , setLogout , setMode, setPosts} = authSlice.actions ;
 export default authSlice.reducer;
