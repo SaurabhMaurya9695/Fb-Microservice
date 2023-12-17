@@ -20,7 +20,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline/>
           <Routes>
-            {token && <Route path="/" element={<Home/>} /> }
+            {token ? <Route path="/" element={<Home/>} />  : <Route path="/" element={<Logout/>} />}
             <Route path="/register" element={<Login/>} />
             <Route path="/logout" element={<Logout/>} />
             <Route path="/login" element={<Register/>} />

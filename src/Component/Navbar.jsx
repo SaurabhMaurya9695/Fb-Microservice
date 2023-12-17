@@ -24,7 +24,7 @@ import PagesIcon from "@mui/icons-material/Pages"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMode } from "../redux/state";
+import { setLogout, setMode } from "../redux/state";
 
 
 
@@ -109,7 +109,7 @@ const Navbar = () => {
               <MenuItem>
                 <Typography>{user.username}</Typography>
               </MenuItem>
-              <MenuItem>Log Out</MenuItem>
+              <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
             </Select>
           </FormControl>
         </FlexBetween>
@@ -184,7 +184,7 @@ const Navbar = () => {
                 <MenuItem>
                   <Typography>{user.username}</Typography>
                 </MenuItem>
-                <MenuItem >
+                <MenuItem onClick={() => dispatch(setLogout())} >
                   Log Out
                 </MenuItem>
               </Select>
