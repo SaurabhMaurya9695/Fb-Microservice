@@ -6,6 +6,7 @@ import SendIcon from '@mui/icons-material/Send';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { useSelector } from 'react-redux';
 import { createPost } from '../../Service/post.service';
+import { USER_BASE_URL } from '../../Service/helper.service';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -46,7 +47,7 @@ const UploadSection = () => {
       <Paper className='upload_container'>
         <div className='upload_top'>
           <div>
-            <Avatar className='upload_image' src={user.image}/>
+            <Avatar className='upload_image' src={USER_BASE_URL + "/users/image/" + user.userId}/>
           </div>
           <div>
             <input className='upload_text' type='text' placeholder="what's on your mind ?"
