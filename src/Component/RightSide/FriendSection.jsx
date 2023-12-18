@@ -1,4 +1,4 @@
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button, Paper } from "@mui/material";
 import './sponser.css'
 import { useState } from "react";
 
@@ -26,21 +26,23 @@ const FriendSection = ({val}) =>{
     return !showSuccess ?  (<>
         <div>
             {/* three sections photo ,name and buttons */}
-            {val.Status === "SEND" &&
-                <div className="friends_conatiner">
-                <div className="friends_left">
-                    <div className="friends_img">
-                        <Avatar src="" alt="noImage.jpeg"/>
+            {val.Status === "SEND" && <Paper className="friends_paper">
+                {val.Status === "SEND" &&
+                    <div className="friends_conatiner">
+                    <div className="friends_left">
+                        <div className="friends_img">
+                            <Avatar src="" alt="noImage.jpeg"/>
+                        </div>
+                        <div className="friends_name">
+                            {val.sendername}
+                        </div>
+                        { val.Status === "SEND" && <div className="friends_right">
+                            <Button sx={{backgroundColor:"none" , fontWeight:600}} onClick={(event)=> showSuccessMesage("accepted")}>Accept</Button>
+                            <Button sx={{backgroundColor:"none" , fontWeight:600}} onClick={(event)=> showSuccessMesage("rejected")} className="ms-3">Reject</Button>
+                        </div>}
                     </div>
-                    <div className="friends_name">
-                        {val.sendername}
-                    </div>
-                    { val.Status === "SEND" && <div className="friends_right">
-                        <Button sx={{backgroundColor:"none" , fontWeight:600}} onClick={(event)=> showSuccessMesage("accepted")}>Accept</Button>
-                        <Button sx={{backgroundColor:"none" , fontWeight:600}} onClick={(event)=> showSuccessMesage("rejected")} className="ms-3">Reject</Button>
-                    </div>}
-                </div>
-            </div>}
+                </div>}
+            </Paper>}
         </div>
      </>) : showMessage() ;
 }
