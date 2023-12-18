@@ -77,7 +77,7 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
-          <PagesIcon onClick={(event) => navigate('/posts')}/>
+          <PagesIcon onClick={(event) => navigate('/profile')}/>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />

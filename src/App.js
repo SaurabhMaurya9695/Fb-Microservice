@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import { useSelector } from 'react-redux';
 import Register from './Pages/register';
+import Profile from './Component/Profile/profile';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -20,7 +21,14 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline/>
           <Routes>
-            {token ? <Route path="/" element={<Home/>} />  : <Route path="/" element={<Logout/>} />}
+            {token ? 
+            (
+              <>
+                <Route path="/" element={<Home/>} />
+                <Route path="/profile" element={<Profile/>} />
+              </>
+            )
+              : <Route path="/" element={<Logout/>} />}
             <Route path="/register" element={<Login/>} />
             <Route path="/logout" element={<Logout/>} />
             <Route path="/login" element={<Register/>} />
