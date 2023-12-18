@@ -3,7 +3,7 @@
     margin-top: 20px;
     border-radius: 20px;
     margin-left: 5px;
-    height: 450px;
+    height: 300px;
     border-radius: 20px !important;
 }
 
@@ -28,7 +28,7 @@
     /* margin-top: 12px; */
 }
 
-.sponsercard_body_con{
+.sponsercard_body_con {
     display: flex;
     align-items: center;
 }

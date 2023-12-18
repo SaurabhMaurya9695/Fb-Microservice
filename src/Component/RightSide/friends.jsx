@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import SponserCard from './sponserCard'
-import { Divider, Typography } from '@mui/material'
+import { Divider, Typography, useTheme } from '@mui/material'
 import FriendSection from './FriendSection'
 
 const Friends = () => {
 
   const [friends , setFriends] = useState([]);
+  const { palette } = useTheme();
   const getFriends = () =>{
     return ([
       {
@@ -81,12 +82,18 @@ const Friends = () => {
     <div>
       <SponserCard/>
       <Divider className='mt-3' sx={{color:"#f8f9fa" }} />
-      <Typography sx={{
-        color:"black",
-        fontWeight:600,
-        fontSize:"20px",
+      <Typography 
+      sx={{
+        fontWeight:"600",
+        marginLeft:"2px",
+        fontSize:"1.5rem",
         textAlign:"center",
-      }}>Contacts list</Typography>
+        "&:hover": {
+          cursor: "pointer",
+          color: palette.primary.dark,
+        },
+      }}
+      >Contacts list</Typography>
       <Divider className='mt-3' sx={{color:"#f8f9fa" }} />
       <div className="friends_container">
         {

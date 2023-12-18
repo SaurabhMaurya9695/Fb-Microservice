@@ -6,9 +6,6 @@ import { USER_BASE_URL } from '../../Service/helper.service';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import EditIcon from '@mui/icons-material/Edit';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
 const SponserCard = () => {
 
   const user = useSelector((state)=>state.user);
@@ -70,32 +67,6 @@ const SponserCard = () => {
             </div>
             <div className="sponserCard_footer_Value">
               652875
-            </div>
-          </div>
-        </div>
-        <Divider sx={{color:"white"}} />
-        <div className="social_profiles_container">
-          <h6 className="social_profiles_text ms-3 mt-3">Social Profiles</h6>
-          <div className="social_profiles">
-            <div className="social_logo">
-              <TwitterIcon/>
-            </div>
-            <div className="social_logo_text">
-              Twitter
-            </div>
-            <div className="social_link_edit">
-              <EditIcon/>
-            </div>
-          </div>
-          <div className="social_profiles">
-            <div className="social_logo">
-              <LinkedInIcon/>
-            </div>
-            <div className="social_logo_text">
-              Twitter
-            </div>
-            <div className="social_link_edit">
-              <EditIcon/>
             </div>
           </div>
         </div>
