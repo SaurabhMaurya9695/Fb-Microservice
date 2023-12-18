@@ -1,0 +1,83 @@
+.profileCard_container{
+    width: 300px;
+    margin-top: 20px;
+    border-radius: 20px;
+    margin-left: 5px;
+    height: 350px;
+    border-radius: 20px !important;
+}
+
+.profileCard_header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.profileCard_header_image{
+    margin-top: 9px;
+    margin-left: 10px;
+}
+
+.profileCard_header_text{
+    margin-left: 15px;
+    margin-top: 4px;
+}
+
+.profileCard_body{
+    margin-left: 16px;
+    /* margin-top: 12px; */
+}
+
+.profileCard_body_con {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.sponcard_icon_text{
+    margin-left: 20px;
+    font-size: 11px;
+    font-weight: 200;
+    color: grey;
+}
+
+.profileCard_footer{
+    /* margin-top: 12px; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profileCard_footer_text{
+    margin-right: 50px;
+    font-size: 13px;
+    font-weight: lighter;
+}
+
+.social_profiles{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.social_profiles_text{
+    font-weight: 700;
+}
+
+.social_logo{
+    margin-left: -16px
+}
+
+.profileCard_footer_Value{
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.sponser_text{
+    height: 20px;
+}
+
+.social_logo_text{
+    font-size: 1rem;
+}

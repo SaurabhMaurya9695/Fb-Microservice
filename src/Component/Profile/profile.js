@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Navbar';
 import { Col, Row } from 'react-bootstrap';
-import SponserCard from '../RightSide/sponserCard';
+import ProfileLeftSide from './profileLeftSide';
 
 const Profile = () => {
   return (
@@ -12,7 +12,7 @@ const Profile = () => {
                 <Col md={4} style={{
                     border:'2px solid red '
                 }}>
-                    <SponserCard/>
+                    <ProfileLeftSide/>
                 </Col>
                 <Col  style={{
                     border:'2px solid red '
