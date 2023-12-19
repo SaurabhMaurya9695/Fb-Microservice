@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/post")
 @Slf4j
+@CrossOrigin("*")
 public class PostController {
 
     @Autowired
