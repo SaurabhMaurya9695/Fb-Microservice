@@ -35,8 +35,17 @@ spring:
           uri: lb://JWT-SERVICE
           predicates:
             - Path=/authenticate/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
   #Adding config-Server
   config:
     import: optional:configserver:http://localhost:8085/
-
 
