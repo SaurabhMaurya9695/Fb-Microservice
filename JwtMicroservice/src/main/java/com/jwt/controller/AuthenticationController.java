@@ -2,6 +2,7 @@ package com.jwt.controller;
 
 import com.jwt.dto.UserDto;
 import com.jwt.exception.BadApiRequestException;
+import com.jwt.feign.UserService;
 import com.jwt.response.JwtRequest;
 import com.jwt.response.JwtResponse;
 import com.jwt.security.JwtHelper;
@@ -35,6 +36,9 @@ public class AuthenticationController {
 
     @Autowired
     private ModelMapper modelMapper;
+    
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest jwtRequest) {
@@ -46,10 +50,15 @@ public class AuthenticationController {
         UserDetails details = userDetailsService.loadUserByUsername(jwtRequest.getEmail());
         String token = this.jwtHelper.generateToken(details);
 
+        if(token == null){
+            return null;
+        }
         JwtResponse jwtResponse = new JwtResponse();
         jwtResponse.setJwttoken(token);
-        jwtResponse.setUser(modelMapper.map(details, UserDto.class));
-
+        UserDto userDto = modelMapper.map(details, UserDto.class);
+        //now add userDto to user's with the friendRequest and posts
+        UserDto user = this.userService.getUser(userDto.getUserId());
+        jwtResponse.setUser(user);
 
         return new ResponseEntity<JwtResponse>(jwtResponse, HttpStatus.OK);
 
