@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, IconButton, ListItem, Paper, Typography, useTheme } from '@mui/material'
+import { Avatar, Button, Divider, FormControl, IconButton, InputLabel, ListItem, MenuItem, Paper, Select, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -7,7 +7,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
 import "../UploadSection/upload.css"
 import DeleteIcon from '@mui/icons-material/Delete';
-import { APIGATEWAY_BASE_URL, POST_BASE_URL, USER_BASE_URL } from '../../Service/helper.service';
+import { POST_BASE_URL, USER_BASE_URL } from '../../Service/helper.service';
 
 const Posts = ({p}) => {
   
@@ -17,6 +17,7 @@ const Posts = ({p}) => {
   const [changeShare,setChangeShare] = useState(false)
   const [cnt , setCnt] = useState(p.likeCnt);
   const [commentBox , setCommentBox] = useState(false);
+  const [privacy, setPrivacy] = useState("Public");
   const [commentlist , setCommentList] = useState({
     value : ''
   })
@@ -84,6 +85,12 @@ const Posts = ({p}) => {
     </>)
   }
 
+  
+
+  const handleChange = (event) => {
+    setPrivacy(event.target.value);
+  };
+
   return (
     <div>
       <Paper className='posts_container mt-3 '>
@@ -116,9 +123,20 @@ const Posts = ({p}) => {
                   cursor: "pointer",
                   color: palette.primary.dark,
                 },}}/>
-                <Button  className='ms-4' startIcon={<DeleteIcon />} size='large'>
-                  Delete Post
-                </Button>
+                <Button  className='ms-4' startIcon={<DeleteIcon />} size='large'/>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 100 , marginTop:'2px' }}>
+                  <InputLabel id="demo-simple-select-label">Privacy</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={privacy}
+                    label="privacy"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Public">Public</MenuItem>
+                    <MenuItem value="Private">Private</MenuItem>
+                  </Select>
+                </FormControl>
             </div>
         </div>
 
