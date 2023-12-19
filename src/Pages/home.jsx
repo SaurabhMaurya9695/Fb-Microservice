@@ -5,22 +5,32 @@ import LeftSideBar from '../Component/LeftSideBar'
 import MiddleBar from '../Component/MiddleBar'
 import Friends from '../Component/RightSide/friends'
 import { getAllPost } from '../Service/post.service'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setPosts } from '../redux/state'
 const Home = () => {
 
-  const [post , setPost] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
-    getPosts();
-  },[]);
 
-  const getPosts = () =>{
-    getAllPost().then((data)=>{
-      console.log(data);
-      setPost(data);
-    }).catch((error)=>{
-      console.log(error);
-    })
-  }
+    const getPosts = () =>{
+      getAllPost().then((data)=>{
+        console.log(data);
+        dispatch(
+          setPosts({
+            post : data
+          })
+        )
+      }).catch((error)=>{
+        console.log(error);
+      })
+    }
+
+    getPosts();
+  },[]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  
 
  
 

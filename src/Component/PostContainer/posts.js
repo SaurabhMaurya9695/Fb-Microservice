@@ -7,6 +7,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
 import "../UploadSection/upload.css"
 import DeleteIcon from '@mui/icons-material/Delete';
+import { APIGATEWAY_BASE_URL, POST_BASE_URL, USER_BASE_URL } from '../../Service/helper.service';
 
 const Posts = ({p}) => {
   
@@ -14,7 +15,7 @@ const Posts = ({p}) => {
   const [changeLike,setChangeLike] = useState(false)
   const [changeComment,setChangeComment] = useState(false)
   const [changeShare,setChangeShare] = useState(false)
-  const [cnt , setCnt] = useState(p.like);
+  const [cnt , setCnt] = useState(p.likeCnt);
   const [commentBox , setCommentBox] = useState(false);
   const [commentlist , setCommentList] = useState({
     value : ''
@@ -91,7 +92,7 @@ const Posts = ({p}) => {
         <div className='post_header'>
             <div className='post_header_inner_div mt-3 ms-2' >
               <div className='post_header_image'>
-                  <Avatar className='post_img' src='https://scontent.fknu1-5.fna.fbcdn.net/v/t39.30808-1/387684188_3540021242932260_4946501197515680151_n.jpg?stp=dst-jpg_p148x148&_nc_cat=106&ccb=1-7&_nc_sid=4da83f&_nc_ohc=dXZlwmmT--gAX_tKz5D&_nc_ht=scontent.fknu1-5.fna&oh=00_AfBTI1XJZ1izSU2wXLNuQRSOuo8AM-ltFUDb6TJWqzS4iA&oe=657822CF'/>
+                  <Avatar className='post_img' src={USER_BASE_URL+"/users/image/" + p.userId}/>
               </div>
               <div className='post_header_text ms-2'>
               <Typography
@@ -123,12 +124,12 @@ const Posts = ({p}) => {
 
         {/* discription */}
         <div className='post_discription'>
-          <p>{p.post_discription}</p>
+          <p>{p.description}</p>
         </div>
 
         {/* Image Section */}
-        {p.post_url && <div className='post_image'>
-          <img alt='NOImage' src={p.post_url} width="600px"></img>
+        {p.image && <div className='post_image'>
+          <img alt='NOImage' src={POST_BASE_URL + "/post/image/"+ p.postId} width="600px"></img>
         </div>}
 
         {/* Like count  */}

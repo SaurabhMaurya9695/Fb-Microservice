@@ -4,7 +4,7 @@ const initialState = {
   mode: "light",
   user: null,
   token: null,
-  posts: null,
+  all_posts: null,
   friends : null
 };
 
@@ -27,14 +27,14 @@ export const authSlice = createSlice({
       if (state.user === null) {
         console.log("User's friends not exist :(");
       } else {
-        state.user.friends = action.payload.user.friends;
+        state.friends = action.payload;
       }
     },
     setPosts: (state, action) => {
       if (state.user === null) {
         console.log("User's Posts not exist :(");
       } else {
-        state.posts = action.payload.user.post;
+        state.all_posts = action.payload;
       }
     },
   },
